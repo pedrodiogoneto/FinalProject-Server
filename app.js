@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const index = require('./routes/index');
 const auth = require('./routes/auth');
+const tasks = require('./routes/tasks');
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/tasks', tasks);
 
 // -- 404 and error handler
 
