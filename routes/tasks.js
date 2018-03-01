@@ -12,9 +12,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log(req.body);
+  console.log(req.session.currentUser._id);
   let newTask = new Tasks({
-    title: req.body.title
+    title: req.body.title,
+    owner: req.session.currentUser._id
   });
   newTask.save()
     .then(task => res.json(task))
