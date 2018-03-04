@@ -22,4 +22,14 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/user/:id', (req, res, next) => {
+  const id = req.params.id;
+  Tasks.find({ 'owner': id })
+    .populate('owner')
+    .populate('bids.bidder')
+    .then(tasks => res.json(tasks))
+    .catch(next);
+  console.log(this.tasks);
+});
+
 module.exports = router;
