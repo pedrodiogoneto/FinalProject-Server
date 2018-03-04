@@ -32,4 +32,16 @@ router.get('/user/:id', (req, res, next) => {
   console.log(this.tasks);
 });
 
+router.get('/:id', (req, res, next) => {
+  const id = req.params.id;
+  if (req.session.currentUser) {
+    Tasks.findById(id)
+      .populate('owner')
+      .then((task) => res.json(task))
+      .catch(next);
+  } else {
+    res.status(404).json({error: 'not-found'});
+  }
+});
+
 module.exports = router;
