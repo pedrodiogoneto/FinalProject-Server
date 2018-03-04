@@ -37,6 +37,7 @@ router.get('/:id', (req, res, next) => {
   if (req.session.currentUser) {
     Tasks.findById(id)
       .populate('owner')
+      .populate('bids.bidder')
       .then((task) => res.json(task))
       .catch(next);
   } else {
