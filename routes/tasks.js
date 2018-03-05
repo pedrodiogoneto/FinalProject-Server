@@ -45,4 +45,19 @@ router.get('/:id', (req, res, next) => {
   }
 });
 
+router.post('/:id', (req, res, next) => {
+  const id = req.params.id;
+  if (req.session.currentUser) {
+    let newBid = {
+      price: req.body.price
+    };
+    const task = Tasks.findById(id);
+    task.bids.push(newBid)
+      .then(newBid => res.json(newBid))
+      .catch(next);
+  } else {
+    res.status(404).json({error: 'not-found'});
+  }
+});
+
 module.exports = router;
