@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -23,11 +24,14 @@ app.use(cookieParser());
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4200']
+  origin: [process.env.CLIENT_URL]
 }));
 
 // -- Mongoose connection
-mongoose.connect(`mongodb://localhost/illdoit`);
+mongoose.connect(process.env.MONGODB_URI, {
+  keepAlive: true,
+  reconnectTries: Number.MAX_VALUE
+});
 
 const db = mongoose.connection;
 
