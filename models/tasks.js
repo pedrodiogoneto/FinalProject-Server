@@ -13,7 +13,14 @@ const TasksSchema = Schema({
       type: ObjectId,
       ref: 'User'
     },
-    price: Number
+    price: Number,
+    negotiations: [{
+      sender: {
+        type: ObjectId,
+        ref: 'User'
+      },
+      message: String
+    }]
   }]
 });
 

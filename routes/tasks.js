@@ -38,6 +38,7 @@ router.get('/:id', (req, res, next) => {
     Tasks.findById(id)
       .populate('owner')
       .populate('bids.bidder')
+      .populate('bids.negotiations.sender')
       .then((task) => res.json(task))
       .catch(next);
   } else {
@@ -64,5 +65,77 @@ router.post('/:id', (req, res, next) => {
     res.status(404).json({error: 'not-found'});
   }
 });
+
+// router.post('/:taskId/bids/:bidId', (req, res, next) => {
+//   const taskId = req.params.taskId;
+//   const bidId = req.params.bidId;
+//   if (req.session.currentUser) {
+//     let newNegotiation = {
+//       sender: req.session.currentUser,
+//       message: req.body.message
+//     };
+
+//     Tasks.findOneAndUpdate(
+//       { '_id': taskId, 'bids._id': bidId },
+//       {
+//         '$set': {
+//           'bids.$.negotiations': newNegotiation
+//         }
+//       },
+//       { overwrite: true });
+//   } else {
+//     res.status(404).json({error: 'not-found'});
+//   }
+// });
+
+router.post('/:taskId/bids/:bidId', (req, res, next) => {
+  const taskId = req.params.taskId;
+  const bidId = req.params.bidId;
+  if (req.session.currentUser) {
+    let newNegotiation = {
+      sender: req.session.currentUser,
+      message: req.body.message
+    };
+
+    Tasks.findById(taskId, (err, task) => {
+      if (err) {
+        return next(err);
+      }
+      let bids = task.bids;
+      let index = null;
+
+      for (let i in bids) {
+        if (bids[i]._id.toString() === bidId) {
+          index = i;
+          break;
+        }
+      }
+
+      task.bids[index].negotiations.push(newNegotiation);
+
+      task.save(() => {
+        res.json({});
+      });
+    });
+  }
+});
+
+// router.get(':taskId/bids/:bidId', (req, res, next) => {
+//   const taskId = req.params.taskId;
+//   const bidId = req.params.bidId;
+//   if (req.session.currentUser) {
+//     Tasks.findOne({'_id': taskId, 'bids': {$in: [{'_id': bidId}]}})
+//       .populate('owner')
+//       .populate('bids.bidder')
+//       .populate('bids.negotiation.sender')
+//       .then((task) => {
+//         console.log(task);
+//         res.json(task);
+//       })
+//       .catch(next);
+//   } else {
+//     res.status(404).json({error: 'not-found'});
+//   }
+// });
 
 module.exports = router;

@@ -10,7 +10,11 @@ const tasks = [
     title: 'Iron my shirts',
     bids: [{
       bidder: '5a9591f2cc308136fad6420d',
-      price: 20
+      price: 20,
+      negotiations: [{
+        sender: '5a9591f2cc308136fad6420d',
+        message: 'a really nice message to get the task!!'
+      }]
     }]
   },
   {
@@ -18,7 +22,11 @@ const tasks = [
     title: 'write my master thesis',
     bids: [{
       bidder: '5a9591f2cc308136fad6420d',
-      price: 500
+      price: 500,
+      negotiations: [{
+        sender: '5a9591f2cc308136fad6420d',
+        message: 'I need the moneyyyy!'
+      }]
     }]
   }
 ];
