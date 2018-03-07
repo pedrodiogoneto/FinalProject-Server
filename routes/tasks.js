@@ -15,6 +15,12 @@ router.post('/', (req, res, next) => {
   console.log(req.session.currentUser._id);
   let newTask = new Tasks({
     title: req.body.title,
+    /// /
+    // status: req.body.status,
+    // location: req.body.location,
+    // category: req.body.category,
+    // budget: req.body.budget,
+    /// /
     owner: req.session.currentUser._id
   });
   newTask.save()

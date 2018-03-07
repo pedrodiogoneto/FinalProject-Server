@@ -21,7 +21,11 @@ const TasksSchema = Schema({
       },
       message: String
     }]
-  }]
+  }],
+  status: String,
+  location: String,
+  category: String,
+  budget: Number
 });
 
 const Tasks = mongoose.model('Tasks', TasksSchema);
