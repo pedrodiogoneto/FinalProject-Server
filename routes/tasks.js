@@ -15,12 +15,12 @@ router.post('/', (req, res, next) => {
   console.log(req.session.currentUser._id);
   let newTask = new Tasks({
     title: req.body.title,
-    status: req.body.status,
     location: req.body.location,
     category: req.body.category,
     budget: req.body.budget,
     image: req.body.image,
-    owner: req.session.currentUser._id
+    owner: req.session.currentUser._id,
+    status: 'Ongoing'
   });
   newTask.save()
     .then(task => res.json(task))
@@ -100,6 +100,20 @@ router.post('/:taskId/bids/:bidId', (req, res, next) => {
         res.json({});
       });
     });
+  }
+});
+
+router.post('/:taskId/bids/:bidId/accept', (req, res, next) => {
+  const taskId = req.params.taskId;
+  if (req.session.currentUser) {
+    let data = {
+      status: req.body.status
+    };
+    Tasks.findByIdAndUpdate(taskId, { $set: data })
+      .then(task => {
+        res.json(task);
+      })
+      .catch(error => next(error));
   }
 });
 
