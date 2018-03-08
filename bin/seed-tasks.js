@@ -15,7 +15,12 @@ const tasks = [
         sender: '5a9591f2cc308136fad6420d',
         message: 'a really nice message to get the task!!'
       }]
-    }]
+    }],
+    status: 'open',
+    location: 'poblenou',
+    category: 'house work',
+    budget: '10',
+    image: '/../assets/blabla.jpg'
   },
   {
     owner: '5a9591f2cc308136fad6420c',
@@ -27,7 +32,12 @@ const tasks = [
         sender: '5a9591f2cc308136fad6420d',
         message: 'I need the moneyyyy!'
       }]
-    }]
+    }],
+    status: 'open',
+    location: 'eixample',
+    category: 'academic',
+    budget: '300',
+    image: '/../assets/blabla.jpg'
   }
 ];
 

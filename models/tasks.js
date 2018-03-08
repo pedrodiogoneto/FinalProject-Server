@@ -25,7 +25,8 @@ const TasksSchema = Schema({
   status: String,
   location: String,
   category: String,
-  budget: Number
+  budget: Number,
+  image: String
 });
 
 const Tasks = mongoose.model('Tasks', TasksSchema);
