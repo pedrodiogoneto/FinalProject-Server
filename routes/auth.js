@@ -48,6 +48,7 @@ router.post('/signup', (req, res, next) => {
   const password = req.body.password;
   const location = req.body.location;
   const contact = req.body.contact;
+  const rating = req.body.rating;
 
   if (!username || !password) {
     return res.status(422).json({error: 'validation'});
@@ -66,7 +67,8 @@ router.post('/signup', (req, res, next) => {
         username,
         password: hashPass,
         location,
-        contact
+        contact,
+        rating
       });
 
       return newUser.save()
